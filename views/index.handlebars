@@ -31,7 +31,7 @@
             class='form-control'
             placeholder='輸入餐廳、分類'
             aria-label='Restaurant Name...'
-            value=''
+            value='{{keyword}}'
             aria-describedby='search-button'
           />
           <div class='input-group-append'>
@@ -63,7 +63,7 @@
 
                 <div class='restaurant-category mb-1'>
                   <i class='fas fa-utensils pr-2'></i>
-                  {{this.categor}}
+                  {{this.category}}
                 </div>
 
                 <span class='badge badge-pill badge-danger font-weight-normal'>
