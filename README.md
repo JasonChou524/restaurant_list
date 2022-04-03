@@ -22,5 +22,5 @@
 ## 使用版本
 
 1. node.js: 14.15.5
-2. express": 4.16.4
-3. express-handlebars": 3.0.0
+2. express: 4.16.4
+3. express-handlebars: 3.0.0
