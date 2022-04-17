@@ -54,8 +54,14 @@
               </div>
               <div class='card-footer'>
                 <div class='d-flex justify-content-end align-items-center'>
-                  <a href='#' class='link-primary'>Edit</a>
-                  <a href='#' class='link-primary mx-2'>Details</a>
+                  <a
+                    href='/restaurants/{{this._id}}/edit'
+                    class='link-primary'
+                  >Edit</a>
+                  <a
+                    href='/restaurants/{{this._id}}'
+                    class='link-primary mx-2'
+                  >Details</a>
                   <form action='#' method='POST' class='my-0'>
                     <button type='submit' class='btn btn-danger'>Delete</button>
                   </form>
