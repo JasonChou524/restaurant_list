@@ -1,9 +1,15 @@
 // require packages used in the project
 const express = require('express')
 const mongoose = require('mongoose')
-const env = require('./env.json')
+const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
-const Restaurant = require('./models/restaurant') // 載入 Restaurant model
+const methodOverride = require('method-override')
+
+// 載入環境變數
+const env = require('./env.json')
+
+// 載入 Restaurant model
+const Restaurant = require('./models/restaurant')
 
 const app = express()
 const port = 3000
@@ -12,15 +18,13 @@ mongoose.connect(env.MONGODB_URL, {
   useUnifiedTopology: true,
 })
 
-// require express-handlebars here
-const exphbs = require('express-handlebars')
-const restaurantList = require('./restaurant.json')
-
 // setting template engine
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
 app.use(bodyParser.urlencoded({ extended: true }))
+// 設定每一筆請求都會透過 methodOverride 進行前置處理
+app.use(methodOverride('_method'))
 
 // setting static files
 app.use(express.static('public'))
@@ -83,14 +87,14 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .catch((error) => console.log(error))
 })
 
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findByIdAndUpdate(id, req.body)
     .then(() => res.redirect(`/restaurants/${id}`))
     .catch((error) => console.log(error))
 })
 
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then((restaurant) => restaurant.remove())
