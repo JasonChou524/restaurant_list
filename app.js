@@ -2,6 +2,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const env = require('./env.json')
+const Restaurant = require('./models/restaurant') // 載入 Restaurant model
 
 const app = express()
 const port = 3000
@@ -34,7 +35,10 @@ db.once('open', () => {
 
 // routes setting
 app.get('/', (req, res) => {
-  res.render('index', { restaurants: restaurantList.results })
+  Restaurant.find()
+    .lean()
+    .then((restaurants) => res.render('index', { restaurants }))
+    .catch((error) => console.error(error))
 })
 
 app.get('/search', (req, res) => {
