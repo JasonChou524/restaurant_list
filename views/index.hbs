@@ -62,7 +62,11 @@
                     href='/restaurants/{{this._id}}'
                     class='link-primary mx-2'
                   >Details</a>
-                  <form action='#' method='POST' class='my-0'>
+                  <form
+                    action='/restaurants/{{this._id}}/delete'
+                    method='POST'
+                    class='my-0'
+                  >
                     <button type='submit' class='btn btn-danger'>Delete</button>
                   </form>
 
