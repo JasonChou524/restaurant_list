@@ -3,14 +3,23 @@ const router = express.Router()
 const Restaurant = require('../../models/restaurant')
 
 router.get('/', (req, res) => {
-  const keyword = req.query.keyword
-  const restaurants = restaurantList.results.filter((restaurant) => {
-    return (
-      restaurant.name.toLowerCase().includes(keyword.toLowerCase()) ||
-      restaurant.category.toLowerCase().includes(keyword)
-    )
-  })
-  res.render('index', { restaurants: restaurants, keyword: keyword })
+  const keywords = req.query.keyword
+  const keyword = keywords.trim().toLowerCase()
+
+  Restaurant.find()
+    .lean()
+    .then((restaurantsData) => {
+      const filterRestaurantsData = restaurantsData.filter(
+        (data) =>
+          data.name.toLowerCase().includes(keyword) ||
+          data.name_en.toLowerCase().includes(keyword) ||
+          data.category.includes(keyword)
+      )
+      res.render('index', {
+        restaurants: filterRestaurantsData,
+        keyword: keywords,
+      })
+    })
 })
 
 module.exports = router
