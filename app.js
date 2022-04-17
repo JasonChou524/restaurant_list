@@ -2,6 +2,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const env = require('./env.json')
+const bodyParser = require('body-parser')
 const Restaurant = require('./models/restaurant') // 載入 Restaurant model
 
 const app = express()
@@ -18,6 +19,8 @@ const restaurantList = require('./restaurant.json')
 // setting template engine
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // setting static files
 app.use(express.static('public'))
@@ -50,6 +53,18 @@ app.get('/search', (req, res) => {
     )
   })
   res.render('index', { restaurants: restaurants, keyword: keyword })
+})
+
+app.get('/restaurants/new', (req, res) => {
+  return res.render('new')
+})
+
+app.post('/restaurants', (req, res) => {
+  console.log('送出表單')
+  console.log(req.body)
+  return Restaurant.create(req.body)
+    .then(() => res.redirect('/'))
+    .catch((error) => console.log(error))
 })
 
 app.get('/restaurants/:restaurant_id', (req, res) => {
