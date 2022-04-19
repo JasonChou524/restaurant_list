@@ -3,7 +3,7 @@ const env = require('../env.json')
 
 const mongoose = require('mongoose')
 
-mongoose.connect(env.MONGODB_URL, {
+mongoose.connect(env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

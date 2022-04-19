@@ -17,9 +17,10 @@
 
 1. 進入"restaurant_List"資料夾
 2. npm install
-3. npm run dev
-4. 打開瀏覽器 http://localhost:3000
-5. 關閉伺服器請按 ctrl + c
+3. 請在 ./env.json 中的 MONGODB_URI 填入與 MongoDB Atlas 連線的連線字串
+4. npm run dev
+5. 打開瀏覽器 http://localhost:3000
+6. 關閉伺服器請按 ctrl + c
 
 ## Run the seeder
 
