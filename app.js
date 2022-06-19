@@ -4,9 +4,13 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const session = require('express-session')
-const usePassport = require('./config/passport')
 const flash = require('connect-flash')
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
+const usePassport = require('./config/passport')
 // 引用路由器
 const routes = require('./routes')
 require('./config/mongoose')
