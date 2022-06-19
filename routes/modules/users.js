@@ -51,7 +51,10 @@ router.post('/register', (req, res) => {
             password: hash, // 用雜湊值取代原本密碼
           })
         )
-        .then(() => res.redirect('/'))
+        .then(() => {
+          req.flash('success_msg', '註冊成功，請重新登入。')
+          res.redirect('/users/login')
+        })
     })
     .catch((err) => console.log(err))
 })
