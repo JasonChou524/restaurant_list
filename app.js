@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const session = require('express-session')
+const usePassport = require('./config/passport')
 
 // 引用路由器
 const routes = require('./routes')
@@ -17,6 +18,9 @@ const port = process.env.PORT
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
+// setting static files
+app.use(express.static('public'))
+
 app.use(
   session({
     secret: 'ThisIsMySecret',
@@ -26,11 +30,11 @@ app.use(
 )
 
 app.use(bodyParser.urlencoded({ extended: true }))
+
 // 設定每一筆請求都會透過 methodOverride 進行前置處理
 app.use(methodOverride('_method'))
 
-// setting static files
-app.use(express.static('public'))
+usePassport(app)
 
 // 將 request 導入路由器
 app.use(routes)
